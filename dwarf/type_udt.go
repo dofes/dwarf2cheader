@@ -14,11 +14,12 @@ type vEntry struct {
 }
 
 type vStructField struct {
-	Name          string
-	Entry         vEntry
-	ByteOffset    int64
-	ByteSize      int64
-	BitOffset     int64
-	DataBitOffset int64
-	BitSize       int64
+	Name           string
+	Entry          vEntry
+	ByteOffset     int64
+	ByteSize       int64
+	BitOffset      int64
+	DataBitOffset  int64
+	BitSize        int64
+	AccessModifier string
 }

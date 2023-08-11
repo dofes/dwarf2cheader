@@ -162,7 +162,15 @@ func GenerateUdtCHeaderFile(info *dwarfhelper.DwarfInfo) error {
 		if err != nil {
 			return err
 		}
+		currentModifier := ""
 		for _, v1 := range v.ExStructField {
+			if v1.AccessModifier != currentModifier {
+				_, err = create.WriteString(fmt.Sprintf("%s:\n", v1.AccessModifier))
+				if err != nil {
+					return err
+				}
+				currentModifier = v1.AccessModifier
+			}
 			_, err = create.WriteString(fmt.Sprintf("\t%s %s; // %d\n", v1.Entry.TypeName, v1.Name, v1.ByteOffset))
 			if err != nil {
 				return err

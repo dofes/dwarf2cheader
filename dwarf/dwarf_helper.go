@@ -232,7 +232,21 @@ func (_this *DwarfInfo) GetType(entry *dwarf.Entry, reader *dwarf.Reader, sty st
 					}
 					UDT.ExStructField = UDT.ExStructField[0 : n+1]
 					UDT.ExStructField[n] = f
-
+					accessibility, exists := kid.Val(dwarf.AttrAccessibility).(int64)
+					if !exists {
+						f.AccessModifier = "private" // 默认为private
+					} else {
+						switch accessibility {
+						case 1: // DW_ACCESS_public
+							f.AccessModifier = "public"
+						case 3: // DW_ACCESS_private
+							f.AccessModifier = "private"
+						case 2: // DW_ACCESS_protected
+							f.AccessModifier = "protected"
+						default:
+							f.AccessModifier = "private" // 默认为private
+						}
+					}
 				}
 			}
 			UDT.StructType = *t
