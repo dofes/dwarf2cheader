@@ -171,7 +171,7 @@ func GenerateUdtCHeaderFile(info *dwarfhelper.DwarfInfo) error {
 				}
 				currentModifier = v1.AccessModifier
 			}
-			_, err = create.WriteString(fmt.Sprintf("\t%s %s; // %d\n", v1.Entry.TypeName, v1.Name, v1.ByteOffset))
+			_, err = create.WriteString(fmt.Sprintf("\t%s %s; // this+0x%x\n", v1.Entry.TypeName, v1.Name, v1.ByteOffset))
 			if err != nil {
 				return err
 			}
